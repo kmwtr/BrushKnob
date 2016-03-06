@@ -37,11 +37,13 @@
 // variables
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-#define KEY_X       0x1B // x
-#define KEY_A_US    0x2F // [
-#define KEY_B_US    0x30 // ]
-//#define KEY_A_JP   0x30 // [
-//#define KEY_B_JP   0x31 // ]
+#define KEY_E    0x08 // e
+#define KEY_B    0x05 // b
+//#define KEY_X    0x1B // x
+#define KEY_L    0x2F // [ _US
+#define KEY_R    0x30 // ] _US
+//#define KEY_L   0x30 // [ _JP
+//#define KEY_R   0x31 // ] _JP
 volatile static uchar scanCode = 0;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -51,7 +53,7 @@ volatile static uchar scanCode = 0;
 #define RE_L    4
 volatile static uchar pinFlag = 0; // pin change flag
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+volatile static uchar buttonToggleFlag = 0;
 
 volatile static uchar hotFlag = 0; // report ready flag
 volatile static uchar tmpRotateFlag = 0; // rotate direction flag
@@ -134,7 +136,13 @@ ISR(TIMER0_COMPA_vect)
     // TactileSwitch
     if(((pinFlag & TSW) == TSW) && bit_is_clear(PINB,0)){
         hotFlag = 1;
-        scanCode = KEY_X;
+        if(buttonToggleFlag == 0){
+            scanCode = KEY_E;
+            buttonToggleFlag = 1;
+        }else{
+            scanCode = KEY_B;
+            buttonToggleFlag = 0;
+        }
         //pinFlag &= ~TSW; // flag clear
     }
 
@@ -149,12 +157,12 @@ ISR(TIMER0_COMPA_vect)
         if(bit_is_set(PINB,4)){
             if(tmpRotateFlag=='N'){
                 hotFlag = 1;
-                scanCode = KEY_A_US;
+                scanCode = KEY_L;
             }
         }else{
             if(tmpRotateFlag=='P'){
                 hotFlag = 1;
-                scanCode = KEY_B_US;
+                scanCode = KEY_R;
             }
         }
         tmpRotateFlag = 0;
