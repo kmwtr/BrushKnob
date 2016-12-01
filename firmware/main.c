@@ -137,10 +137,10 @@ ISR(TIMER0_COMPA_vect)
     if(((pinFlag & TSW) == TSW) && bit_is_clear(PINB,0)){
         hotFlag = 1;
         if(buttonToggleFlag == 0){
-            scanCode = KEY_E;
+            scanCode = KEY_3;
             buttonToggleFlag = 1;
         }else{
-            scanCode = KEY_B;
+            scanCode = KEY_8;
             buttonToggleFlag = 0;
         }
         //pinFlag &= ~TSW; // flag clear
