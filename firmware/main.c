@@ -40,10 +40,10 @@
 #define KEY_E    0x08 // e
 #define KEY_B    0x05 // b
 //#define KEY_X    0x1B // x
-#define KEY_L    0x2F // [ _US
-#define KEY_R    0x30 // ] _US
-//#define KEY_L   0x30 // [ _JP
-//#define KEY_R   0x31 // ] _JP
+#define KEY_L    0x2F // [ US / QWERTY
+#define KEY_R    0x30 // ] US / QWERTY
+//#define KEY_L   0x30 // [ JP / JIS
+//#define KEY_R   0x31 // ] JP / JIS
 volatile static uchar scanCode = 0;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
